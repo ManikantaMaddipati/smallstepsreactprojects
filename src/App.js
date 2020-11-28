@@ -11,6 +11,8 @@ function App() {
 
     const [timeleft,setTimeleft] = useState(25 * 60);
 
+    const [isRunning,setIsRunning] = useState(false);
+
     const intervalRef =useRef(null);
 
     const minutes = helpPadTime(Math.floor(timeleft/60));
@@ -19,6 +21,7 @@ function App() {
     function startTimer() {
         if ((intervalRef.current !== null)) return;
         settitle('Timer Started');
+        setIsRunning(true);
         intervalRef.current =  setInterval(
            () => setTimeleft( (timeleft) => {
                    if (timeleft >= 1) return timeleft - 1;
@@ -36,6 +39,8 @@ function App() {
         settitle('Timer Stopped');
 
         intervalRef.current=null;
+
+        setIsRunning(false);
 
     }
 
@@ -65,8 +70,8 @@ function App() {
             </div>
 
             <div className="timerButtons">
-               <button className="startButton" onClick={startTimer}>START</button>
-                <button className="resetStop" onClick={stopTimer}>STOP</button>
+                {!isRunning && <button className="startButton" onClick={startTimer}>START</button> }
+                { isRunning &&  <button className="resetStop" onClick={stopTimer}>STOP</button> }
                 <button className="resetButton" onClick={retsetTimer}>RESET</button>
             </div>
           </div>
