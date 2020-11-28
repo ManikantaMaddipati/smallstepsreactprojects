@@ -34,6 +34,14 @@ function App() {
         settitle('Timer Stopped');
     }
 
+    function retsetTimer() {
+        settitle("Resetting Timer");
+        setTimeleft(25 * 60);
+        clearInterval(intervalRef.current);
+        settitle("Start The Timer");
+        intervalRef.current=null;
+    }
+
     return (
     <div className="App">
         <nav>
@@ -54,7 +62,7 @@ function App() {
             <div className="timerButtons">
                <button className="startButton" onClick={startTimer}>START</button>
                 <button className="resetStop" onClick={stopTimer}>STOP</button>
-               <button className="resetButton">RESET</button>
+                <button className="resetButton" onClick={retsetTimer}>RESET</button>
             </div>
           </div>
 
