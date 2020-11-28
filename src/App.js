@@ -9,7 +9,6 @@ function App() {
 
     const [title,settitle] = useState("Start The Timer!");
 
-
     const [timeleft,setTimeleft] = useState(25 * 60);
 
     const intervalRef =useRef(null);
@@ -18,6 +17,7 @@ function App() {
     const seconds = helpPadTime(timeleft - minutes * 60);
 
     function startTimer() {
+        if ((intervalRef.current !== null)) return;
         settitle('Timer Started');
         intervalRef.current =  setInterval(
            () => setTimeleft( (timeleft) => {
@@ -30,8 +30,13 @@ function App() {
     }
 
     function stopTimer() {
+        if ((intervalRef.current === null)) return;
+
         clearInterval(intervalRef.current);
         settitle('Timer Stopped');
+
+        intervalRef.current=null;
+
     }
 
     function retsetTimer() {
